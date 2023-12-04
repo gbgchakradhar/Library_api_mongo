@@ -1,6 +1,7 @@
 const router = require("express").Router()
 const Book = require("../models/book")
 const Subject = require("../models/subject")
+const Time = require("../models/timeLog")
 
 //show available copies of a book
 router.get("/book", async (req, res) => {
@@ -100,6 +101,49 @@ router.get("/popular", async (req, res) => {
         res.status(500).json(err)
     }
 })
+
+//In a given time range number of students and staff in library
+
+router.get("/count", async (req, res) => {
+    const from_time = req.body.from_time;
+    const to_time = req.body.to_time;
+    const branch = req.body.branch;
+    const date = req.body.date;
+
+    const fromTime = new Date(`${date}T${from_time}Z`);
+    const toTime = new Date(`${date}T${to_time}Z`);
+
+    try {
+
+        const data = await Time.find({
+            branch: branch,
+            date: date
+        });
+
+
+        const filteredData = data.filter(entry => {
+            const entryInTime = new Date(`${date}T${entry.in_time}Z`);
+
+            return entryInTime >= fromTime && entryInTime <= toTime;
+        });
+
+
+        const studentCount = filteredData.filter(entry => entry.designation === "Student").length;
+        const staffCount = filteredData.filter(entry => entry.designation === "Staff").length;
+
+        const result = {
+            studentCount: studentCount,
+            staffCount: staffCount
+        };
+
+        res.status(200).json(result);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+    }
+});
+
+
 
 
 module.exports = router

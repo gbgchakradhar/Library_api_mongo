@@ -8,8 +8,7 @@ const staffSchema = new mongoose.Schema(
         gender: { type: String, required: true },
         current_branch: { type: String, required: true },
         role: { type: String, required: true },
-        // time_in: { type: Date, required: true },
-        // time_out: { type: Date, required: true },
+
     }, { timestamps: true }
 );
 

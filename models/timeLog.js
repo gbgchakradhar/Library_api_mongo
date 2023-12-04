@@ -5,9 +5,10 @@ const timeSchema = new mongoose.Schema(
         designation: { type: String, required: true },
         Id: { type: String, required: true },
         branch: { type: String, required: true },
-        date: { type: Date, required: true },
-        in_time: { type: String },
-        out_time: { type: String }
+        date: { type: String, required: true },
+        in_time: { type: String, default: null },
+        out_time: { type: String, default: null }
+
 
     }
 );

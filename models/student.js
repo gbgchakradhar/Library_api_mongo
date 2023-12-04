@@ -7,8 +7,6 @@ const studentSchema = new mongoose.Schema(
         name: { type: String, required: true },
         age: { type: Number, required: true },
         gender: { type: String, required: true },
-        // time_in: { type: Date, required: true },
-        // time_out: { type: Date, required: true },
         books_availed: [
             {
                 bookId: { type: String, required: true },

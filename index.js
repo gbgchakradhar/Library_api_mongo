@@ -13,7 +13,7 @@ const monitorRoute = require("./routes/monitor")
 const operationRoute = require("./routes/operations")
 
 dotenv.config();
-mongoose.connect(process.env.MONGO_URL)
+mongoose.connect(process.env.MONGO_URI)
     .then(() => { console.log("Db connxn Success"); })
     .catch((err) => { console.log(err); });
 
